@@ -1,0 +1,53 @@
+include typer.e
+
+type record(object a)
+    return is("record",a)
+end type
+
+type float(object a)
+    return is("float",a)
+end type
+
+procedure test()
+    verbose(YES) -- just to watch the testing
+    
+    add_template("integer",1)
+    add_template("float",1.1)
+    
+    ?is("integer",1)
+    ?is("integer",1.1)
+    ?is("float",1)
+    ?is("float",1.1)
+
+    add_template("record",{"","",""})
+
+    ?is("record",1)
+    ?is("record",1.1)
+    ?is("record",{})
+    ?is("record",{"",""})
+    ?is("record",{1,2,3})
+    ?is("record",{"","",""})
+    ?is("record",{"a","b","c"})
+    ?is("record",{"","",{{},{}}})
+    ?is("record",{{{},{}},"",""})
+    ?is("record",{"",{{},{}},""})
+    ?is("record",{"Bobby","Jones","Ranger"})
+    
+    -- this last test reveals what happens when you don't have a proper string() type
+    ?is("record",{"Bobby","Jones",{1972,12,25}})
+    
+    record a
+    a = {"Bobby","Jones","Ranger"}
+    
+    float b
+    b = 0.2
+    
+    -- now we'll crash
+    a = "seven"
+    
+end procedure
+
+test()
+
+maybe_any_key()
+
